@@ -8,9 +8,9 @@ const client = new Client({
 });
 
 
-
+client.connect();
 exports.update = (dataToupdate) => {
-    client.connect();
+    
     var in_home;
     var device_name = dataToupdate.device;
     if (dataToupdate.status == "entered")
@@ -22,7 +22,7 @@ exports.update = (dataToupdate) => {
     console.log(query);
     client.query(query, (err, res) => {
         if (err) throw err;
-        client.end();
+        
     });
 
 }
