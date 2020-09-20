@@ -3,9 +3,9 @@ const { Client } = require('pg');
 const client = new Client({
     connectionString: process.env.DATABASE_URL,
     ssl: {
-        rejectUnauthorized: false
+      rejectUnauthorized: false
     }
-});
+  });
 
 
 client.connect();
@@ -25,4 +25,19 @@ exports.update = (dataToupdate) => {
         
     });
 
+}
+
+exports.get_status = (callback) => {
+    var query = "SELECT id, device_name, in_home FROM \"Device\".mobile_devices_list;"
+    console.log(query);
+    var data = [];
+
+    client.query(query, (err, res) => {
+        if (err) throw err;
+        for (let row of res.rows) {
+            data.push(row);
+        }
+        console.log(data);
+        callback(data);
+    });
 }
